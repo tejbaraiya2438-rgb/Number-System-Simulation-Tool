@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Number System Analyzer | STARK</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         STARK HUD HEADER
+    ========================== -->
+
+    <header class="topbar">
+
+        <div class="stark-logo">
+            <span class="reactor">◉</span>
+
+            <div>
+                <strong>STARK</strong>
+                <small>COMPUTATIONAL SYSTEMS</small>
+            </div>
+        </div>
+
+        <div class="system-status">
+            <span class="status-dot"></span>
+            SYSTEM ONLINE
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <!-- =========================
+             HERO
+        ========================== -->
+
+        <section class="hero">
+
+            <div class="hud-label">
+                NUMBER SYSTEM // ANALYSIS CORE
+            </div>
+
+            <h1>
+                NUMBER SYSTEM
+                <span>ANALYZER</span>
+            </h1>
+
+            <p>
+                Analyze, convert and understand Binary, Octal,
+                Decimal and Hexadecimal number systems.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             INPUT CORE
+        ========================== -->
+
+        <section class="input-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <span class="panel-tag">
+                        INPUT CORE
+                    </span>
+
+                    <h2>
+                        Enter Number
+                    </h2>
+                </div>
+
+                <span class="core-id">
+                    CORE-01
+                </span>
+
+            </div>
+
+
+            <div class="input-area">
+
+                <label for="numberInput">
+                    NUMBER INPUT
+                </label>
+
+                <div class="number-input">
+
+                    <span class="input-symbol">
+                        &gt;_
+                    </span>
+
+                    <input
+                        type="text"
+                        id="numberInput"
+                        placeholder="Enter a number..."
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+
+                </div>
+
+                <p class="input-hint">
+                    Example: 1011, 57, 255, 2F
+                </p>
+
+            </div>
+
+
+            <!-- Ambiguous input selector -->
+            <div
+                id="baseSelector"
+                class="base-selector"
+                hidden
+            >
+
+                <p>
+                    This value can belong to multiple number systems.
+                    Select the intended base:
+                </p>
+
+                <div class="base-options">
+
+                    <button
+                        type="button"
+                        class="base-option"
+                        data-base="2"
+                    >
+                        BINARY
+                        <small>BASE 2</small>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="base-option"
+                        data-base="8"
+                    >
+                        OCTAL
+                        <small>BASE 8</small>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="base-option"
+                        data-base="10"
+                    >
+                        DECIMAL
+                        <small>BASE 10</small>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="analyzeBtn"
+                class="analyze-btn"
+                type="button"
+            >
+
+                <span class="button-icon">
+                    ◉
+                </span>
+
+                ANALYZE NUMBER
+
+                <span class="button-arrow">
+                    →
+                </span>
+
+            </button>
+
+
+            <div
+                id="errorMessage"
+                class="error-message"
+                hidden
+            >
+                <strong>INVALID INPUT</strong>
+                <p id="errorText">
+                    Please enter a valid number.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             DETECTION RESULT
+        ========================== -->
+
+        <section
+            id="detectionPanel"
+            class="detection-panel"
+            hidden
+        >
+
+            <div class="panel-header">
+
+                <div>
+                    <span class="panel-tag">
+                        SYSTEM DETECTION
+                    </span>
+
+                    <h2>
+                        Input Analysis
+                    </h2>
+                </div>
+
+                <span class="scan-status">
+                    ANALYZED
+                </span>
+
+            </div>
+
+
+            <div class="detection-grid">
+
+                <div class="detection-card">
+
+                    <span class="label">
+                        INPUT
+                    </span>
+
+                    <strong id="detectedInput">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="detection-card">
+
+                    <span class="label">
+                        DETECTED SYSTEM
+                    </span>
+
+                    <strong id="detectedSystem">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="detection-card">
+
+                    <span class="label">
+                        BASE
+                    </span>
+
+                    <strong id="detectedBase">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CONVERSION MATRIX
+        ========================== -->
+
+        <section
+            id="conversionPanel"
+            class="conversion-panel"
+            hidden
+        >
+
+            <div class="panel-header">
+
+                <div>
+                    <span class="panel-tag">
+                        CONVERSION MATRIX
+                    </span>
+
+                    <h2>
+                        All Number Systems
+                    </h2>
+                </div>
+
+                <span class="core-id">
+                    OUTPUT-04
+                </span>
+
+            </div>
+
+
+            <div class="conversion-grid">
+
+                <!-- BINARY -->
+
+                <article class="conversion-card">
+
+                    <div class="conversion-icon">
+                        01
+                    </div>
+
+                    <div class="conversion-info">
+
+                        <span>
+                            BINARY
+                        </span>
+
+                        <small>
+                            BASE 2
+                        </small>
+
+                        <strong id="binaryOutput">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <button
+                        class="copy-btn"
+                        data-copy="binaryOutput"
+                        type="button"
+                    >
+                        COPY
+                    </button>
+
+                </article>
+
+
+                <!-- OCTAL -->
+
+                <article class="conversion-card">
+
+                    <div class="conversion-icon">
+                        8
+                    </div>
+
+                    <div class="conversion-info">
+
+                        <span>
+                            OCTAL
+                        </span>
+
+                        <small>
+                            BASE 8
+                        </small>
+
+                        <strong id="octalOutput">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <button
+                        class="copy-btn"
+                        data-copy="octalOutput"
+                        type="button"
+                    >
+                        COPY
+                    </button>
+
+                </article>
+
+
+                <!-- DECIMAL -->
+
+                <article class="conversion-card">
+
+                    <div class="conversion-icon">
+                        10
+                    </div>
+
+                    <div class="conversion-info">
+
+                        <span>
+                            DECIMAL / INTEGER
+                        </span>
+
+                        <small>
+                            BASE 10
+                        </small>
+
+                        <strong id="decimalOutput">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <button
+                        class="copy-btn"
+                        data-copy="decimalOutput"
+                        type="button"
+                    >
+                        COPY
+                    </button>
+
+                </article>
+
+
+                <!-- HEXADECIMAL -->
+
+                <article class="conversion-card">
+
+                    <div class="conversion-icon">
+                        AF
+                    </div>
+
+                    <div class="conversion-info">
+
+                        <span>
+                            HEXADECIMAL
+                        </span>
+
+                        <small>
+                            BASE 16
+                        </small>
+
+                        <strong id="hexOutput">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <button
+                        class="copy-btn"
+                        data-copy="hexOutput"
+                        type="button"
+                    >
+                        COPY
+                    </button>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             DEEP ANALYSIS
+        ========================== -->
+
+        <section
+            id="analysisPanel"
+            class="analysis-panel"
+            hidden
+        >
+
+            <div class="panel-header">
+
+                <div>
+                    <span class="panel-tag">
+                        DEEP ANALYSIS
+                    </span>
+
+                    <h2>
+                        How Did It Happen?
+                    </h2>
+                </div>
+
+                <span class="core-id">
+                    LOGIC-CORE
+                </span>
+
+            </div>
+
+
+            <div class="analysis-intro">
+
+                <div class="analysis-icon">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <h3>
+                        Conversion Process
+                    </h3>
+
+                    <p>
+                        The system breaks the input into its numerical
+                        components and applies positional notation and
+                        base-conversion mathematics.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Input → Decimal -->
+
+            <article class="process-card">
+
+                <div class="process-header">
+
+                    <span class="process-number">
+                        01
+                    </span>
+
+                    <div>
+                        <h3 id="toDecimalTitle">
+                            INPUT → DECIMAL
+                        </h3>
+
+                        <span>
+                            POSITIONAL NOTATION
+                        </span>
+                    </div>
+
+                </div>
+
+                <div
+                    id="toDecimalSteps"
+                    class="calculation"
+                >
+                    <p>
+                        Waiting for analysis...
+                    </p>
+                </div>
+
+            </article>
+
+
+            <!-- Decimal → Binary -->
+
+            <article class="process-card">
+
+                <div class="process-header">
+
+                    <span class="process-number">
+                        02
+                    </span>
+
+                    <div>
+                        <h3>
+                            DECIMAL → BINARY
+                        </h3>
+
+                        <span>
+                            SUCCESSIVE DIVISION BY 2
+                        </span>
+                    </div>
+
+                </div>
+
+                <div
+                    id="binarySteps"
+                    class="calculation"
+                >
+                    <p>
+                        Waiting for analysis...
+                    </p>
+                </div>
+
+            </article>
+
+
+            <!-- Decimal → Octal -->
+
+            <article class="process-card">
+
+                <div class="process-header">
+
+                    <span class="process-number">
+                        03
+                    </span>
+
+                    <div>
+                        <h3>
+                            DECIMAL → OCTAL
+                        </h3>
+
+                        <span>
+                            SUCCESSIVE DIVISION BY 8
+                        </span>
+                    </div>
+
+                </div>
+
+                <div
+                    id="octalSteps"
+                    class="calculation"
+                >
+                    <p>
+                        Waiting for analysis...
+                    </p>
+                </div>
+
+            </article>
+
+
+            <!-- Decimal → Hexadecimal -->
+
+            <article class="process-card">
+
+                <div class="process-header">
+
+                    <span class="process-number">
+                        04
+                    </span>
+
+                    <div>
+                        <h3>
+                            DECIMAL → HEXADECIMAL
+                        </h3>
+
+                        <span>
+                            SUCCESSIVE DIVISION BY 16
+                        </span>
+                    </div>
+
+                </div>
+
+                <div
+                    id="hexSteps"
+                    class="calculation"
+                >
+                    <p>
+                        Waiting for analysis...
+                    </p>
+                </div>
+
+            </article>
+
+
+            <!-- Final explanation -->
+
+            <article class="explanation-card">
+
+                <div class="explanation-title">
+                    <span>◉</span>
+                    WHAT ACTUALLY HAPPENED?
+                </div>
+
+                <p id="deepExplanation">
+                    Enter a number and run the analysis to see
+                    the complete mathematical explanation.
+                </p>
+
+            </article>
+
+        </section>
+
+
+        <!-- =========================
+             NUMBER SYSTEM REFERENCE
+        ========================== -->
+
+        <section class="reference-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <span class="panel-tag">
+                        REFERENCE
+                    </span>
+
+                    <h2>
+                        Number Systems
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="reference-grid">
+
+                <div class="reference-card">
+
+                    <strong>
+                        Binary
+                    </strong>
+
+                    <span>
+                        Base 2
+                    </span>
+
+                    <p>
+                        Uses only 0 and 1.
+                    </p>
+
+                </div>
+
+
+                <div class="reference-card">
+
+                    <strong>
+                        Octal
+                    </strong>
+
+                    <span>
+                        Base 8
+                    </span>
+
+                    <p>
+                        Uses digits from 0 to 7.
+                    </p>
+
+                </div>
+
+
+                <div class="reference-card">
+
+                    <strong>
+                        Decimal
+                    </strong>
+
+                    <span>
+                        Base 10
+                    </span>
+
+                    <p>
+                        Uses digits from 0 to 9.
+                    </p>
+
+                </div>
+
+
+                <div class="reference-card">
+
+                    <strong>
+                        Hexadecimal
+                    </strong>
+
+                    <span>
+                        Base 16
+                    </span>
+
+                    <p>
+                        Uses 0–9 and A–F.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <p>
+            STARK COMPUTATIONAL SYSTEMS
+        </p>
+
+        <span>
+            NUMBER SYSTEM ANALYZER • EDUCATIONAL PROJECT
+        </span>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
